@@ -1,6 +1,5 @@
 const inq = require('inquirer');
 const fs = require('fs');
-const https = require('https');
 
 let title = "";
 let desc = "";
@@ -9,9 +8,11 @@ let usage = "";
 let lic = "";
 let contr = "";
 let test = "";
-let quests = "";
+let gituser = "";
+let email = "";
 
 const licArr = {
+    "None": "",
     "MIT License": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
     "GNU Lesser General Public License v3.0": "[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)",
     "Mozilla Public License 2.0": "[![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)",
@@ -26,6 +27,8 @@ for (const item in licArr) {
     licNameArr.push(item);
 }
 // console.log(licNameArr);
+
+
 
 inq.prompt([
     {
@@ -61,28 +64,38 @@ inq.prompt([
     {
         name: "gituser",
         message: "GitHub Username: ",
-        default: ""
+        default: "None provided"
     },
     {
         name: "email",
         message: "Your email: ",
-        default: ""
+        default: "None provided"
     },
     {
         type: "list",
-        name: "lic",
+        name: "license",
         message: "License used: ",
         choices: licNameArr,
-        default: "No license used for this project."
+    },
+    {
+        name: "file",
+        message: "File to save to (do not include extension, README.md by default): ",
+        default: "README"
     }
 ])
+.then(ans => {
+    let usrlic = licArr[ans.license];
+    let licInfo = ans.license === "" ? "This project is not currently using a license." : 
+`This project is using ${ans.license}.
+    Click the badge at the top right of this README for more info.`;
 
-let mdTemplate = 
-`## ${title}
+    let mdTemplate = 
+`# <p>${ans.title}<span style='float: right;'>${usrlic}</span></p>
+
 
 ## Project Description
 
-${desc}
+    ${ans.desc}
 
 ## Table of Contents
 
@@ -95,24 +108,42 @@ ${desc}
 
 ## Installation
 
-${inst}
+    ${ans.inst}
 
 ## Usage
 
-${usage}
+    ${ans.usage}
 
 ## Testing
 
-${test}
+    ${ans.test}
 
 ## Licenses
 
-${lic}
+    ${licInfo}
 
 ## Contribute
 
-${contr}
+    ${ans.contr}
 
 ## Questions
 
-${quests}`
+    For any questions you may find me at:
+
+        GitHub: ${ans.gituser}
+        Email: ${ans.email}`;
+        
+    // fs.writeFileSync('example.md', mdTemplate);
+    fs.writeFile(`${ans.file}.md`, mdTemplate, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+    })
+});
+
+
+
+// fs.writeFile('example.md', mdTemplate, (err) => {
+//     if (err) throw err;
+//     console.log('The file has been saved!');
+// })
+
