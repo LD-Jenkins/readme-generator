@@ -11,6 +11,7 @@ let test = "";
 let gituser = "";
 let email = "";
 
+// Common licenses used on GitHub along with clickable badges provided by shields.io
 const licArr = {
     "None": "",
     "MIT License": "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)",
@@ -22,14 +23,13 @@ const licArr = {
     "GNU General Public License v3.0": "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
 }
 
+// Grab each key from licArr object and push them onto a new array to use for license choices in the below prompt
 const licNameArr = [];
 for (const item in licArr) {
     licNameArr.push(item);
 }
-// console.log(licNameArr);
 
-
-
+// Prompt the user for all data necessary to create the README
 inq.prompt([
     {
         name: "title",
@@ -85,7 +85,7 @@ inq.prompt([
 ])
 .then(ans => {
     let usrlic = licArr[ans.license];
-    let licInfo = ans.license === "" ? "This project is not currently using a license." : 
+    let licInfo = ans.license === "None" ? "This project is not currently using a license." : 
 `This project is using ${ans.license}.
     Click the badge at the top right of this README for more info.`;
 
@@ -133,17 +133,9 @@ inq.prompt([
         GitHub: ${ans.gituser}
         Email: ${ans.email}`;
         
-    // fs.writeFileSync('example.md', mdTemplate);
+    // Write everything in the above template literal into the file name provided in the prompt. WARNING: this will overwrite any data in that file.
     fs.writeFile(`${ans.file}.md`, mdTemplate, (err) => {
         if (err) throw err;
         console.log('The file has been saved!');
     })
 });
-
-
-
-// fs.writeFile('example.md', mdTemplate, (err) => {
-//     if (err) throw err;
-//     console.log('The file has been saved!');
-// })
-
