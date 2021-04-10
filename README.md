@@ -33,7 +33,7 @@
 
     The last prompt will ask you to enter a filename to save everything to. WARNING: If the filename already exists in the same directory you are working from the exisiting data in that file will be overwritten! You do not have to include the file extension as the file will be saved as .md regardless.
     
-    [An example of this project in action!](https://drive.google.com/file/d/1ppOTeDt159jAvk7xv65D-36kYn4zfK-u/view)
+    <a href="https://drive.google.com/file/d/1ppOTeDt159jAvk7xv65D-36kYn4zfK-u/view">An example of this project in action!</a>
 
 ## Licenses
 
