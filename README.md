@@ -32,6 +32,8 @@
     Once installed, use node to run the index.js file and follow the prompts. The prompts will ask you for things like a project title, installation instructions, testing instructions, etc. If you would like to not fill out any part while going through the prompts simply hit enter to skip it and a default value will be entered (a simple description of what would go in that part of the README).
 
     The last prompt will ask you to enter a filename to save everything to. WARNING: If the filename already exists in the same directory you are working from the exisiting data in that file will be overwritten! You do not have to include the file extension as the file will be saved as .md regardless.
+    
+    ![An example of this project in action!](https://drive.google.com/file/d/1ppOTeDt159jAvk7xv65D-36kYn4zfK-u/view)
 
 ## Licenses
 
